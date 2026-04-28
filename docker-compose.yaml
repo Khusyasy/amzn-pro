@@ -1,0 +1,27 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-myuser}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-mypassword}
+      POSTGRES_DB: ${POSTGRES_DB:-mydb}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  amznpro-nuxt-app:
+    depends_on:
+      - db
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${APP_PORT:-3000}:${PORT:-3000}"
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql://myuser:mypassword@db:5432/mydb}
+      NODE_ENV: ${NODE_ENV:-production}
+      HOST: ${HOST:-0.0.0.0}
+      PORT: ${PORT:-3000}
+    restart: unless-stopped
+
+volumes:
+  pgdata:
