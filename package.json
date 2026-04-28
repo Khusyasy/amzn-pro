@@ -27,6 +27,7 @@
     "@nuxt/eslint": "^1.15.2",
     "@types/node": "^25.6.0",
     "@types/pg": "^8.20.0",
+    "csv-parse": "^6.2.1",
     "eslint": "^10.2.1",
     "prisma": "^7.8.0",
     "tsx": "^4.21.0",

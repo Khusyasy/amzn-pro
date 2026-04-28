@@ -1,0 +1,2 @@
+Categories seeded (248 rows) in 0.21s
+Products seeded (1426337 rows) in 270.87s

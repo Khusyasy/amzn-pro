@@ -11,3 +11,28 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model Category {
+  id Int @id @default(autoincrement())
+
+  name String
+
+  products Product[]
+}
+
+model Product {
+  asin String @id
+
+  categoryId Int
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  title             String
+  imgUrl            String
+  productUrl        String
+  stars             Float
+  reviews           Int // counts
+  price             Float // buy now price
+  listPrice         Float // original price before discount, 0 if no discount
+  isBestSeller      Boolean
+  boughtInLastMonth Int
+}
