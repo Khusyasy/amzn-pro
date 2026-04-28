@@ -15,12 +15,21 @@
     "@iconify-json/lucide": "^1.2.104",
     "@iconify-json/simple-icons": "^1.2.80",
     "@nuxt/ui": "^4.7.0",
+    "@prisma/adapter-pg": "^7.8.0",
+    "@prisma/client": "^7.8.0",
+    "dotenv": "^17.4.2",
     "nuxt": "^4.4.2",
-    "tailwindcss": "^4.2.4"
+    "pg": "^8.20.0",
+    "tailwindcss": "^4.2.4",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@nuxt/eslint": "^1.15.2",
+    "@types/node": "^25.6.0",
+    "@types/pg": "^8.20.0",
     "eslint": "^10.2.1",
+    "prisma": "^7.8.0",
+    "tsx": "^4.21.0",
     "typescript": "^6.0.3",
     "vue-tsc": "^3.2.7"
   },
