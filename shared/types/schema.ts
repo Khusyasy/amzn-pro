@@ -1,5 +1,8 @@
 import z from 'zod'
 
+export { z }
+export default z
+
 export const CategorySchema = z.object({
   id: z.int(),
   name: z.string(),

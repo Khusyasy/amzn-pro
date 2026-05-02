@@ -31,11 +31,25 @@ const { data: categories, status: statusCategories } = useFetch('/api/categories
 const itemsCategories = computed(() => {
   if (!categories.value) return []
   return [
-    { id: -1, name: 'All' },
+    { id: 0, name: 'All' },
     ...categories.value,
   ]
 })
-const selectedCategories = ref<CategoryType>({ id: -1, name: 'All' })
+const selectedCategories = ref<CategoryType>({ id: 0, name: 'All' })
+
+const searchQuery = ref('')
+
+const catalog = useCatalog()
+
+onMounted(() => {
+  searchQuery.value = catalog.value.q
+  selectedCategories.value = itemsCategories.value.find(c => c.id === catalog.value.c)
+})
+
+function handleSubmit() {
+  catalog.value.q = searchQuery.value
+  catalog.value.c = selectedCategories.value.id
+}
 
 const itemsNav = computed<NavigationMenuItem[]>(() => [
   {
@@ -79,7 +93,10 @@ const itemsNav = computed<NavigationMenuItem[]>(() => [
         </NuxtLink>
       </template>
 
-      <div class="flex-1 flex w-full max-w-2xl">
+      <UForm
+        class="flex-1 flex w-full max-w-2xl"
+        @submit="handleSubmit"
+      >
         <UFieldGroup
           class="w-full"
         >
@@ -98,6 +115,7 @@ const itemsNav = computed<NavigationMenuItem[]>(() => [
             size="xl"
           />
           <UInput
+            v-model="searchQuery"
             class="w-full"
             placeholder="Seach AmznPro"
             size="xl"
@@ -105,9 +123,10 @@ const itemsNav = computed<NavigationMenuItem[]>(() => [
           <UButton
             icon="lucide:search"
             size="xl"
+            type="submit"
           />
         </UFieldGroup>
-      </div>
+      </UForm>
 
       <template #right>
         <UColorModeButton />

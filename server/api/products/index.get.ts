@@ -1,7 +1,4 @@
-export default defineEventHandler(async (event) => {
-  const test = getRouterParam(event, 'test')
-  console.log(test)
-
+export default defineEventHandler(async () => {
   const products = await prisma.product.findMany({
     take: 20,
   })

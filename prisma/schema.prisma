@@ -6,6 +6,8 @@
 generator client {
   provider = "prisma-client"
   output   = "../generated/prisma"
+  // https://www.prisma.io/docs/v6/orm/prisma-client/queries/full-text-search
+  previewFeatures = ["fullTextSearchPostgres"]
 }
 
 datasource db {
@@ -18,6 +20,8 @@ model Category {
   name String
 
   products Product[]
+
+  @@index([name(ops: raw("gin_trgm_ops"))], map: "category_name_idx", type: Gin)
 }
 
 model Product {
@@ -35,4 +39,6 @@ model Product {
   listPrice         Float // original price before discount, 0 if no discount
   isBestSeller      Boolean
   boughtInLastMonth Int
+
+  @@index([title(ops: raw("gin_trgm_ops"))], map: "product_title_trgm_idx", type: Gin)
 }
